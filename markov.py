@@ -1,8 +1,12 @@
+"""Bot response generator import"""
+import os
+import discord
+import secrets
+
 """A Markov chain generator that can tweet random messages."""
 
 import sys
 from random import choice
-
 
 def open_and_read_file(filenames):
     """Take list of files. Open them, read them, and return one long string."""
@@ -64,3 +68,27 @@ text = open_and_read_file(filenames)
 
 # Get a Markov chain
 chains = make_chains(text)
+
+
+"""Client stuff for Bot Generator"""
+
+client = discord.Client()
+
+
+@client.event
+async def on_ready():
+    print(f'Successfully connected! Logged in as {client.user}.')
+
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return chains
+
+#client refers to function running on line 75
+#run the function
+#os is the object we imported and can index...
+#to find module called environ
+#imported secrets so we can use DISCORD_TOKEN from secrets namespace
+client.run(os.environ['DISCORD_TOKEN'])
+
