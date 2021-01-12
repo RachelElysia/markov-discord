@@ -83,7 +83,9 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.author == client.user:
-        return chains
+        return
+
+    await message.channel.send(make_text(chains))
 
 #client refers to function running on line 75
 #run the function
